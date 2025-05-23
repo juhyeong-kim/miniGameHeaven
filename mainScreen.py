@@ -1,5 +1,5 @@
 import screen
-import 오목
+import Gomoku
 
 cursor_y = 0
 max=4
@@ -92,7 +92,7 @@ def main():
         screen.clearScreen()
 
         if cursor_y == 0:
-            오목.main()
+            Gomoku.main()
         elif cursor_y == max:
             exit()
 
