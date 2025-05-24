@@ -47,7 +47,7 @@ class pc:
     defenseLevelThree = -100         # 열린 세 칸(양방)
     defenseLevelThree_center = -120
     defenseLevelFour_oneBlock = -300 # 막힌 4(즉시 막아야함)
-    defenseLevelFour = -1000         # 열린 4(즉사, 반드시 막아야함)
+    defenseLevelFour = -500         # 열린 4(즉사, 반드시 막아야함)
 
     # 공격 (attack)
     attackLevelOne = -1
@@ -57,7 +57,7 @@ class pc:
     attackLevelThree_oneBlock = -30
     attackLevelThree = -70
     attackLevelThree_center = -90
-    attackLevelFour_oneBlock = -150
+    attackLevelFour_oneBlock = -700
     attackLevelFour = -800           # 열린4, 즉시승리 가능
     
     dolMin=0
