@@ -1,6 +1,7 @@
 import screen
 import Gomoku
-
+import dino_game
+# import dino_game
 cursor_y = 0
 max=4
 gameIng = True
@@ -8,7 +9,7 @@ menu = [
     ["1. 오목"],
     ["2. 게임2"],
     ["3. 게임3"],
-    ["4. 게임4"],
+    ["4. 다이노 게임"],
     ["5. 종료"]
 ]
 
@@ -93,6 +94,8 @@ def main():
 
         if cursor_y == 0:
             Gomoku.main()
+        elif cursor_y == 3:
+            dino_game.main()
         elif cursor_y == max:
             exit()
 
