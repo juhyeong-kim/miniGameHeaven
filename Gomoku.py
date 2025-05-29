@@ -34,6 +34,11 @@ dolx, doly = 5, 5
 gameIng = True
 winDolChk=0
 
+PC_PLAY = 0
+TWO_PLAY=1
+mode = 0
+
+
 
 class pc:
     map=[]
@@ -231,18 +236,17 @@ def on_press():
                 gameIng=False
                 winDolChk = dol
                 return
-            # else:
-            #     if dol==black:
-            #         dol=white
-            #     else:
-            #         dol=black
-                
-            ai.weightChk(map2)
-            ai.setDol()
-            if winChk(ai.setDolX,ai.setDolY,ai.dol):
-                gameIng=False
-                winDolChk = ai.dol
-                return
+            elif mode == TWO_PLAY:
+                if dol==black:
+                    dol=white
+                else:
+                    dol=black
+            elif mode == PC_PLAY:
+                ai.weightChk(map2)
+                ai.setDol()
+                if winChk(ai.setDolX,ai.setDolY,ai.dol):
+                    gameIng=False
+                    winDolChk = ai.dol
 
 
 
@@ -306,10 +310,10 @@ def drawMap():
             print(startStr,end="")
         print("\r")
 
-
+setPlayModeIng = True
 setDolIng=True
 def on_press_setDol():
-    global cursor_y, dol, setDolIng
+    global cursor_y, dol, setDolIng,setPlayModeIng
     key = screen.getKey()  # 키 입력 대기 (1byte 입력받기)
     # 전역 변수 사용
     if key == 'w':  # W: 위로 이동
@@ -317,40 +321,97 @@ def on_press_setDol():
     elif key == 's':  # S: 아래로 이동
         cursor_y = 2
     elif key == 'l':
-        if cursor_y==1:
+        if mode == PC_PLAY:
+            if cursor_y==1:
+                dol = black
+                ai.setMyDol(white)
+            elif cursor_y==2:
+                dol = white
+                ai.setMyDol(black)
+        else:
             dol = black
-            ai.setMyDol(white)
-        elif cursor_y==2:
-            dol = white
-            ai.setMyDol(black)
         setDolIng=False
+        setPlayModeIng=False
         
+
+def drawMenu():
+    screen.move_cursor_to(0,0)
+    print("╔═══════════════════════════════════════════════════════════════════════════╗\r")
+    print("║                                                                           ║\r")
+    print("║               ██████╗ ███╗   ███╗ ██████╗  ██████╗ ██╗  ██╗               ║\r")
+    print("║              ██╔═══██╗████╗ ████║██╔═══██╗██╔═══██╗██║ ██╔╝               ║\r")
+    print("║              ██║   ██║██╔████╔██║██║   ██║██║   ██║█████╔╝                ║\r")
+    print("║              ██║   ██║██║╚██╔╝██║██║   ██║██║   ██║██╔═██╗                ║\r")
+    print("║              ╚██████╔╝██║ ╚═╝ ██║╚██████╔╝╚██████╔╝██║  ██╗               ║\r")
+    print("║               ╚═════╝ ╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝               ║\r")
+    print("║                                                                           ║\r")
+    print("║                                                                           ║\r")
+    print("║                                                                           ║\r")
+    print("║                                                                           ║\r")
+    print("║                          이동 : wasd   │   선택 : l                       ║\r")
+    print("║                                                                           ║\r")
+    print("║     ┌──────────────────────────────────────────────────────────────┐      ║\r")
+    print("║     │                                                              │      ║\r")
+    print("║     │                                                              │      ║\r")
+    print("║     │                                                              │      ║\r")
+    print("║     │                                                              │      ║\r")
+    print("║     │                                                              │      ║\r")
+    print("║     │                                                              │      ║\r")
+    print("║     │                                                              │      ║\r")
+    print("║     │                                                              │      ║\r")
+    print("║     └──────────────────────────────────────────────────────────────┘      ║\r")
+    print("║                                                                           ║\r")
+    print("╚═══════════════════════════════════════════════════════════════════════════╝\r")
+
 def drawDolMenu():
-    screen.move_cursor_to(0,2)
     if(cursor_y==1):
+        screen.move_cursor_to(33,18)
         print("--> 검은 돌\r")
+        screen.move_cursor_to(33,19)
         print("하얀 돌    \r")
     else:
+        screen.move_cursor_to(33,18)
         print("검은 돌    \r")
+        screen.move_cursor_to(33,19)
         print("--> 하얀 돌\r")
 
+def drawPlayModeMenu():
+    if(cursor_y==1):
+        screen.move_cursor_to(33,18)
+        print("--> PC 플레이\r")
+        screen.move_cursor_to(33,19)
+        print("2인 플레이    \r")
+    else:
+        screen.move_cursor_to(33,18)
+        print("PC 플레이    \r")
+        screen.move_cursor_to(33,19)
+        print("--> 2인 플레이\r")
+
 def drawSetDolMenu():
-    global dol,setDolIng,cursor_y,cursor_x,dolx, doly
+    global setDolIng
     screen.clearScreen()
     setDolIng=True
-    screen.move_cursor_to(0,0)
-    print("돌을 선택하세요")
+    drawMenu()
     while setDolIng:
         drawDolMenu()
         on_press_setDol()
-    cursor_x, cursor_y = 1, 1
-    dolx, doly = 5, 5
     screen.clearScreen()
-        
+
+def drawSetPlayModeMenu():
+    global cursor_y, setPlayModeIng,mode
+    screen.clearScreen()
+    setPlayModeIng=True
+    drawMenu()
+    while setPlayModeIng:
+        drawPlayModeMenu()
+        on_press_setDol()
+    mode = cursor_y-1
+    cursor_y=1
+    screen.clearScreen()
 
 
 def main():
-    global gameIng
+    global gameIng, dolx, doly, cursor_x, cursor_y
     for i in range(0,29,1):
         for j in range(0,29,1):
             map2[i][j]=0
@@ -375,12 +436,17 @@ def main():
         map2[26][i]=3
         map2[27][i]=3
         map2[28][i]=3
-    
-    drawSetDolMenu()    
-    
-    if(dol==white):
-        map2[14][14]=black
+
+    drawSetPlayModeMenu()
+    if mode == PC_PLAY:
+        drawSetDolMenu()  
+        if(dol==white):
+            map2[14][14]=black
     drawMap()
+
+
+    cursor_x, cursor_y = 1, 1
+    dolx, doly = 5, 5
     while gameIng:
         screen.move_cursor_to(cursor_x, cursor_y)
         on_press()
