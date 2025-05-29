@@ -286,8 +286,10 @@ def chkDol(x,y,plusX,plusY,dol,wei):
 
 def drawMap():
     screen.move_cursor_to(0,0)
+    print("\n\n\n\n\n\n\n\n\n\n\n")
     for i in range(0,19,1):
         j2=0
+        print("                 ",end="")
         for j in range(0,37,1):
             startStr = ""
             str = ""
@@ -306,7 +308,7 @@ def drawMap():
                 j2=j2+1
             else:
                 str = map1[i][j]
-            startStr= startStr+str+lastStr
+            startStr= ""+startStr+str+lastStr
             print(startStr,end="")
         print("\r")
 
@@ -362,6 +364,36 @@ def drawMenu():
     print("║     └──────────────────────────────────────────────────────────────┘      ║\r")
     print("║                                                                           ║\r")
     print("╚═══════════════════════════════════════════════════════════════════════════╝\r")
+
+def drawWhiteWin():
+    screen.move_cursor_to(0,0)
+    print("\r")
+    print("\r")
+    print("                ██     ██ ██    ██ ██████ ████████ ██████\r")
+    print("                ██     ██ ██    ██   ██      ██    ██    \r")
+    print("                ██  █  ██ ████████   ██      ██    ██████\r")
+    print("                ██ ███ ██ ██    ██   ██      ██    ██    \r")
+    print("                 ███ ███  ██    ██ ██████    ██    ██████\r")
+    print("\r")
+    print("                             ██████ ██ ██ ████\r")
+    print("\r")
+    print("\r")
+    print("\r")
+
+def drawBlackWin():
+    screen.move_cursor_to(0,0)
+    print("\r")
+    print("\r")
+    print("                ██████  ██      █████   ██████  ██   ██\r")
+    print("                ██   ██ ██     ██   ██ ██       ██  ██ \r")
+    print("                ██████  ██     ███████ ██       █████  \r")
+    print("                ██   ██ ██     ██   ██ ██       ██  ██ \r")
+    print("                ██████  ██████ ██   ██  ██████  ██   ██\r")
+    print("\r")
+    print("                             ██████ ██ ██ ████\r")
+    print("\r")
+    print("\r")
+    print("\r")
 
 def drawDolMenu():
     if(cursor_y==1):
@@ -448,16 +480,16 @@ def main():
     cursor_x, cursor_y = 1, 1
     dolx, doly = 5, 5
     while gameIng:
-        screen.move_cursor_to(cursor_x, cursor_y)
+        screen.move_cursor_to(1,1)
         on_press()
         drawMap()
         #ai.showMap()
     
     screen.move_cursor_to(0, 20)
     if winDolChk==white:
-        print("흰색 승")
+        drawWhiteWin()
     else:
-        print("블랙 승")
+        drawBlackWin()
     on_press()
     gameIng = True
     screen.clearScreen()
