@@ -8,8 +8,8 @@ gameIng = True
 menu = [
     ["1. 오목"],
     ["2. 게임2"],
-    ["3. 게임3"],
-    ["4. 다이노 게임"],
+    ["3. 다이노 게임"],
+    ["4. 게임3"],
     ["5. 종료"]
 ]
 
@@ -93,7 +93,7 @@ def main():
 
         if cursor_y == 0:
             Gomoku.main()
-        elif cursor_y == 3:
+        elif cursor_y == 2:
             dino_game.main()
         elif cursor_y == max:
             exit()
